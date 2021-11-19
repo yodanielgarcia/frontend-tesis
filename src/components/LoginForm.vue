@@ -68,8 +68,8 @@ export default {
         }
         axios.post('https://jeahs5cimi.execute-api.us-east-2.amazonaws.com/default/UdistritalLambdaLoginUser', JSON.stringify(body) )
         .then((response) => {
-          console.log(response.data);
-          if (response.data[0]) {
+          console.log(response.data[0]);
+          if (response.data != 'error') {
             localStorage.setItem('UserLog', JSON.stringify(response.data[0]));
             this.$router.push("/Reports")
           } else {
