@@ -18,6 +18,17 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Aulas.vue"),
+    beforeEnter(to, from, next) {
+      let user = localStorage.getItem('UserLog');
+      user = JSON.parse(user)
+      if (user) {
+        next()
+      } else {
+        next({
+          name: "Login" // back to safety route //
+        });
+      }
+    }
   },
   {
     path: "/Aulas/assign",
@@ -27,6 +38,17 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AulasAssing.vue"),
+    beforeEnter(to, from, next) {
+      let user = localStorage.getItem('UserLog');
+      user = JSON.parse(user)
+      if (user) {
+        next()
+      } else {
+        next({
+          name: "Login" // back to safety route //
+        });
+      }
+    }
   },
   {
     path: "/Reports",
@@ -36,6 +58,17 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/charts.vue"),
+    beforeEnter(to, from, next) {
+      let user = localStorage.getItem('UserLog');
+      user = JSON.parse(user)
+      if (user) {
+        next()
+      } else {
+        next({
+          name: "Login" // back to safety route //
+        });
+      }
+    }
   },
   {
     path: "/CovidAlerts",
@@ -45,6 +78,17 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/CovidAlerts.vue"),
+    beforeEnter(to, from, next) {
+      let user = localStorage.getItem('UserLog');
+      user = JSON.parse(user)
+      if (user) {
+        next()
+      } else {
+        next({
+          name: "Login" // back to safety route //
+        });
+      }
+    }
   },
   {
     path: "/Register",
@@ -56,7 +100,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Register.vue"),
   },
   {
-    path: "/Socioeconomic",
+    path: "/Socioeconomic/:id",
     name: "Socioeconomic",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -65,7 +109,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Socioeconomic.vue"),
   },
   {
-    path: "/Health",
+    path: "/Health/:id",
     name: "Health",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

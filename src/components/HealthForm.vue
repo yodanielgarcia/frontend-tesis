@@ -18,105 +18,105 @@
                     <label for="range-1">¿Ya se vacuno?</label>
                     <b-form-checkbox
                         id="checkbox-1"
-                        v-model="status"
+                        v-model="form.Vaccine"
                         name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
                     <b-form-group id="input-group-3" label="Tipo de vacuna:" label-for="input-3">
                         <b-form-select
                         id="input-3"
-                        v-model="form.food"
-                        :options="foods"
+                        v-model="form.Id_type_vaccine"
+                        :options="typeVaccine"
                         required
                         ></b-form-select>
                     </b-form-group>
                     <label for="range-1">Suba su carnet de vacunacion</label>
                     <b-form-file
-                    v-model="file1"
-                    :state="Boolean(file1)"
+                    v-model="form.ImgCarnetVaccine"
                     placeholder="Choose a file or drop it here..."
                     drop-placeholder="Drop file here..."
+                    :state="Boolean(form.ImgCarnetVaccine)"
                     ></b-form-file>
                     <label for="range-1">VIH</label>
                     <b-form-checkbox
-                        id="checkbox-1"
-                        v-model="status"
-                        name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        id="checkbox-2"
+                        v-model="form.HIV"
+                        name="checkbox-2"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
                     <label for="range-1">cancer</label>
                     <b-form-checkbox
-                        id="checkbox-1"
-                        v-model="status"
-                        name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        id="checkbox-3"
+                        v-model="form.Cancer"
+                        name="checkbox-3"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
                     <label for="range-1">Diabetes</label>
                     <b-form-checkbox
-                        id="checkbox-1"
-                        v-model="status"
-                        name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        id="checkbox-4"
+                        v-model="form.Diabetes"
+                        name="checkbox-4"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
                 </b-col>
                 <b-col cols="6"> 
                     <label for="range-1"># Dosis</label>
-                    <b-form-input type="number" v-model="text" placeholder="Enter your name"></b-form-input>
+                    <b-form-input type="number" v-model="form.NumDoseVaccine" placeholder="Enter your name"></b-form-input>
                     <label for="range-1">Hipertension</label>
                     <b-form-checkbox
-                        id="checkbox-1"
-                        v-model="status"
-                        name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        id="checkbox-5"
+                        v-model="form.HypertensiveDiseases"
+                        name="checkbox-5"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
                     <label for="range-1">asma</label>
                     <b-form-checkbox
-                        id="checkbox-1"
-                        v-model="status"
-                        name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        id="checkbox-6"
+                        v-model="form.Asthma"
+                        name="checkbox-6"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
                     <label for="range-1">Obesidad</label>
                     <b-form-checkbox
-                        id="checkbox-1"
-                        v-model="status"
-                        name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        id="checkbox-7"
+                        v-model="form.Obesity"
+                        name="checkbox-7"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
                     <label for="range-1">Celebrovascular</label>
                     <b-form-checkbox
-                        id="checkbox-1"
-                        v-model="status"
-                        name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        id="checkbox-8"
+                        v-model="form.CerebrovascularDisease"
+                        name="checkbox-8"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
-                    <label for="range-1">autismo</label>
+                    <label for="range-1">Inmunodeficiencia primaria</label>
                     <b-form-checkbox
-                        id="checkbox-1"
-                        v-model="status"
-                        name="checkbox-1"
-                        value="accepted"
-                        unchecked-value="not_accepted"
+                        id="checkbox-9"
+                        v-model="form.PrimaryImmunodeficiency"
+                        name="checkbox-9"
+                        value="1"
+                        unchecked-value="0"
                         >
                     </b-form-checkbox>
                     <label for="range-1">otra</label>
-                    <b-form-input v-model="text" placeholder="........"></b-form-input>
+                    <b-form-input v-model="form.other" placeholder="........"></b-form-input>
                 </b-col>
                 <b-col style="margin-top: 2%">
                     <b-button type="button" variant="primary" @click="onSubmit">Registrar</b-button>
@@ -131,23 +131,47 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   name: "HelloWorld",
   data() {
       return {
         form: {
-          email: '',
-          password: '',
+          Id_user: this.$route.params.id,
+          Vaccine:'',
+          Id_type_vaccine:'',
+          ImgCarnetVaccine:null,
+          HIV:'',
+          Cancer:'',
+          Diabetes:'',
+          NumDoseVaccine:'',
+          HypertensiveDiseases:'',
+          Asthma:'',
+          Obesity:'',
+          CerebrovascularDisease:'',
+          PrimaryImmunodeficiency:'',
+          other:'',
         },
-        foods: [{ text: 'Seleccion Facultad', value: null }, 'Tecnologica', 'Vivero', 'Ingenierias', 'Macarena'],
+        typeVaccine: [],
         show: true
       }
     },
+  mounted () {
+    axios.get('https://1zpgwgkp6l.execute-api.us-east-2.amazonaws.com/default/getTipeVaccine')
+    .then((response) => {
+      let typeVac = response.data.map(function(element) {
+        let options ={ value: element.Id, text: element.Description }
+        return options
+      });
+      this.typeVaccine = typeVac
+    });
+  },
   methods: {
-      onSubmit() {
-        console.log(this.form.email);
-        this.$router.push("/Reports");
-      },
+    onSubmit() {
+      let body = this.form
+      axios.post('https://lb8lvzdr02.execute-api.us-east-2.amazonaws.com/default/UdistritalRegisterHealth', JSON.stringify(body) )
+      .then(response => response.data == 'ok' ? this.$router.push("/Reports") : alert('Contraseña o correo errado'));
+    },
   }
 };
 </script>

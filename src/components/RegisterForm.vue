@@ -17,42 +17,42 @@
             <b-row>
                 <b-col cols="6"> 
                     <label for="range-1">Nombres</label>
-                    <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
+                    <b-form-input v-model="form.FirstName"  required placeholder="Enter your name"></b-form-input>
                     <label for="range-1">Apellidos</label>
-                    <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
+                    <b-form-input v-model="form.LastName" required placeholder="Enter your name"></b-form-input>
                     <label for="range-1"># Identificacion</label>
-                    <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
+                    <b-form-input v-model="form.IdentificationDocument" required placeholder="Enter your name"></b-form-input>
                     <b-form-group id="input-group-3" label="Carrera:" label-for="input-3">
                         <b-form-select
                         id="input-3"
-                        v-model="form.food"
-                        :options="foods"
+                        v-model="form.Id_carrer"
+                        :options="carrers"
                         required
                         ></b-form-select>
                     </b-form-group>
                     <b-form-group id="input-group-3" label="Facultad:" label-for="input-3">
                         <b-form-select
                         id="input-3"
-                        v-model="form.food"
-                        :options="foods"
+                        v-model="form.Id_faculty"
+                        :options="faculties"
                         required
                         ></b-form-select>
                     </b-form-group>
                 </b-col>
                 <b-col cols="6"> 
                     <label for="range-1">Correo</label>
-                    <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
+                    <b-form-input v-model="form.Email" required placeholder="Enter your name"></b-form-input>
                     <label for="range-1">Password</label>
-                    <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
+                    <b-form-input v-model="form.Password" required placeholder="Enter your name"></b-form-input>
                     <label for="range-1">Codigo estudiantil</label>
-                    <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
+                    <b-form-input v-model="form.UniversityCode" required placeholder="Enter your name"></b-form-input>
                     <label for="range-1">Fecha nacimiento</label>
-                    <b-form-datepicker id="example-datepicker" v-model="form.dateStart" class="mb-2"></b-form-datepicker>
+                    <b-form-datepicker id="example-datepicker" v-model="form.BirthDate" class="mb-2"></b-form-datepicker>
                     <b-form-group id="input-group-3" label="Tipo Usuario:" label-for="input-3">
                         <b-form-select
                         id="input-3"
-                        v-model="form.food"
-                        :options="foods"
+                        v-model="form.type_user"
+                        :options="typeUsers"
                         required
                         ></b-form-select>
                     </b-form-group>
@@ -70,23 +70,62 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   name: "HelloWorld",
   data() {
-      return {
-        form: {
-          email: '',
-          password: '',
-        },
-        foods: [{ text: 'Seleccion Facultad', value: null }, 'Tecnologica', 'Vivero', 'Ingenierias', 'Macarena'],
-        show: true
-      }
-    },
-  methods: {
-      onSubmit() {
-        console.log(this.form.email);
-        this.$router.push("/Socioeconomic");
+    return {
+      form: {
+        Email: '',
+        Password: '',
+        FirstName:'',
+        LastName:'',
+        IdentificationDocument:'',
+        Id_faculty:'',
+        Id_carrer:'',
+        UniversityCode:'',
+        BirthDate:'',
+        type_user:''
       },
+      faculties: [{ text: 'Seleccion Facultad', value: null }],
+      carrers: [{ text: 'tipo usuario', value: null }],
+      typeUsers: [{ text: 'tipo usuario', value: null }, 'Estudiante', 'Profesor', 'Administrador', 'Servicios Varios'],
+      show: true
+    }
+  },
+  mounted () {
+    axios.get('https://mlszgwx586.execute-api.us-east-2.amazonaws.com/default/getCarrers')
+    .then((response) => {
+      let carrers = response.data.map(function(element) {
+        let options ={ value: element.Id, text: element.Description }
+        return options
+      });
+      this.carrers = carrers
+    });
+    axios.get('https://pqgaymtfv0.execute-api.us-east-2.amazonaws.com/default/getFactulties')
+    .then((response) => {
+      let faculties = response.data.map(function(element) {
+        let options ={ value: element.Id, text: element.Description }
+        return options
+      });
+      this.faculties = faculties
+    });
+    axios.get('https://fjjt1ys7vi.execute-api.us-east-2.amazonaws.com/default/getTipeUser')
+    .then((response) => {
+      let typeUs = response.data.map(function(element) {
+        let options ={ value: element.Id, text: element.Description }
+        return options
+      });
+      this.typeUsers = typeUs
+    });
+  },
+  methods: {
+    onSubmit() {
+      //todo validar correo no exista
+      let body = this.form
+      axios.post('https://jgcu9imo1a.execute-api.us-east-2.amazonaws.com/default/UdistritalRegisterUser', JSON.stringify(body) )
+      .then(response => response.data ? this.$router.push("/Socioeconomic/"+response.data ) : alert('Contraseña o correo errado'));
+    },
   }
 };
 </script>

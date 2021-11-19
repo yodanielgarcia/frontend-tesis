@@ -2,12 +2,13 @@
   <div class="form">
     <div class="cardForm" style="display: flex; justify-content:center;">
       <b-card
-        title="Registro De Usuarios"
+        title="Login De Usuarios"
         img-src="https://www.udistrital.edu.co/themes/custom/versh/logo.png"
         img-alt="Image"
         img-top
         tag="article"
         class="mb-2"
+        style="width: 60%;lign-items: center;justify-content: center;display: flex;"
       >
       <b-card-text>
         Bienvenido a la aplicacion retorno a la aulas <br>
@@ -38,7 +39,7 @@
           ></b-form-input>
         </b-form-group>
       <br>
-      <b-button type="button" variant="primary" @click="onSubmit">Registrar</b-button>
+      <b-button type="button" variant="primary" @click="onSubmit">Acceder</b-button>
       <b-button type="reset" variant="danger">Limpiar</b-button>
     </b-form>
       </b-card>
@@ -47,6 +48,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   name: "HelloWorld",
   data() {
@@ -60,8 +62,20 @@ export default {
     },
   methods: {
       onSubmit() {
-        console.log(this.form.email);
-        this.$router.push("/Reports");
+        let body = {
+          "email": this.form.email,
+          "password": this.form.password
+        }
+        axios.post('https://jeahs5cimi.execute-api.us-east-2.amazonaws.com/default/UdistritalLambdaLoginUser', JSON.stringify(body) )
+        .then((response) => {
+          console.log(response.data);
+          if (response.data[0]) {
+            localStorage.setItem('UserLog', JSON.stringify(response.data[0]));
+            this.$router.push("/Reports")
+          } else {
+            alert('Contraseña o correo errado')
+          }
+        })
       },
       onReset(event) {
         event.preventDefault()
