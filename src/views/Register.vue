@@ -9,7 +9,8 @@
 import RegisterForm from "@/components/RegisterForm.vue";
 
 export default {
-  name: "Home",
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: "Register",
   components: {
     RegisterForm,
   },

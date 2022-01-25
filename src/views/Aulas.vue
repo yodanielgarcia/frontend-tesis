@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <AulasForm style="margin-top: 5%"/>
+    <AulasForm style="margin-top: 5%" />
   </div>
 </template>
 

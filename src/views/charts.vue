@@ -1,23 +1,23 @@
 <template>
   <div class="about">
     <b-container fluid="sm">
-        <h1>DashBoard</h1> 
-        <b-row>
-            <b-col>
-                <ClassroomChart style="margin-top: 5%"/>
-            </b-col>
-            <b-col>
-                <TotalCapacity style="margin-top: 5%"/>
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col>
-                <UserVaccinated style="margin-top: 5%"/>
-            </b-col>
-            <b-col>
-                <UserbackClassrooms style="margin-top: 5%"/>
-            </b-col>
-        </b-row>    
+      <h1>DashBoard</h1>
+      <b-row>
+        <b-col>
+          <ClassroomChart style="margin-top: 5%" />
+        </b-col>
+        <b-col>
+          <TotalCapacity style="margin-top: 5%" />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <UserVaccinated style="margin-top: 5%" />
+        </b-col>
+        <b-col>
+          <UserbackClassrooms style="margin-top: 5%" />
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>

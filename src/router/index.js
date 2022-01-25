@@ -60,7 +60,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/charts.vue"),
     beforeEnter(to, from, next) {
       let user = localStorage.getItem('UserLog');
-      user = JSON.parse(user)
+      user = JSON.parse(user) 
       if (user) {
         next()
       } else {

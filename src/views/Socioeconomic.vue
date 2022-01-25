@@ -1,6 +1,6 @@
 <template>
   <div class="home" style="margin-top: 5%">
-    <SocioeconomicForm/>
+    <SocioeconomicForm />
   </div>
 </template>
 

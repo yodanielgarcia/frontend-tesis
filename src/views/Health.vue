@@ -1,6 +1,6 @@
 <template>
   <div class="home" style="margin-top: 5%">
-    <HealthForm/>
+    <HealthForm />
   </div>
 </template>
 
