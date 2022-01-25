@@ -19,16 +19,16 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Aulas.vue"),
     beforeEnter(to, from, next) {
-      let user = localStorage.getItem('UserLog');
-      user = JSON.parse(user)
+      let user = localStorage.getItem("UserLog");
+      user = JSON.parse(user);
       if (user) {
-        next()
+        next();
       } else {
         next({
-          name: "Login" // back to safety route //
+          name: "Login", // back to safety route //
         });
       }
-    }
+    },
   },
   {
     path: "/Aulas/assign",
@@ -39,16 +39,16 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AulasAssing.vue"),
     beforeEnter(to, from, next) {
-      let user = localStorage.getItem('UserLog');
-      user = JSON.parse(user)
+      let user = localStorage.getItem("UserLog");
+      user = JSON.parse(user);
       if (user) {
-        next()
+        next();
       } else {
         next({
-          name: "Login" // back to safety route //
+          name: "Login", // back to safety route //
         });
       }
-    }
+    },
   },
   {
     path: "/Reports",
@@ -59,16 +59,36 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/charts.vue"),
     beforeEnter(to, from, next) {
-      let user = localStorage.getItem('UserLog');
-      user = JSON.parse(user) 
+      let user = localStorage.getItem("UserLog");
+      user = JSON.parse(user);
       if (user) {
-        next()
+        next();
       } else {
         next({
-          name: "Login" // back to safety route //
+          name: "Login", // back to safety route //
         });
       }
-    }
+    },
+  },
+  {
+    path: "/RegisterClass",
+    name: "RegisterClass",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/RegisterClass.vue"),
+    beforeEnter(to, from, next) {
+      let user = localStorage.getItem("UserLog");
+      user = JSON.parse(user);
+      if (user) {
+        next();
+      } else {
+        next({
+          name: "Login", // back to safety route //
+        });
+      }
+    },
   },
   {
     path: "/CovidAlerts",
@@ -79,16 +99,16 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/CovidAlerts.vue"),
     beforeEnter(to, from, next) {
-      let user = localStorage.getItem('UserLog');
-      user = JSON.parse(user)
+      let user = localStorage.getItem("UserLog");
+      user = JSON.parse(user);
       if (user) {
-        next()
+        next();
       } else {
         next({
-          name: "Login" // back to safety route //
+          name: "Login", // back to safety route //
         });
       }
-    }
+    },
   },
   {
     path: "/Register",

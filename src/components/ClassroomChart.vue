@@ -1,20 +1,16 @@
 <template>
   <div class="small">
-    <h2>Capacidad Total en aulas</h2>
-    <line-chart :chart-data="datacollection"></line-chart>
+    <h2>Personas Con covid</h2>
+    <b-table striped hover :items="items"></b-table>
   </div>
 </template>
 
 <script>
-import LineChart from "../charts/ClassroomCapacity";
-
+const axios = require("axios");
 export default {
-  components: {
-    LineChart,
-  },
   data() {
     return {
-      datacollection: null,
+      items: [],
     };
   },
   mounted() {
@@ -22,24 +18,20 @@ export default {
   },
   methods: {
     fillData() {
-      this.datacollection = {
-        labels: [this.getRandomInt(), this.getRandomInt()],
-        datasets: [
-          {
-            label: "Data One",
-            backgroundColor: "#f87979",
-            data: [this.getRandomInt(), this.getRandomInt()],
-          },
-          {
-            label: "Data One",
-            backgroundColor: "#f87979",
-            data: [this.getRandomInt(), this.getRandomInt()],
-          },
-        ],
-      };
-    },
-    getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+      axios
+        .get(
+          "https://io1cl6mxk1.execute-api.us-east-2.amazonaws.com/default/userWithCovid"
+        )
+        .then((response) => {
+          let itemsTable = response.data.map(function (element) {
+            let options = {
+              Sintoma: element.SymptomCovid,
+              Descripcion: element.description,
+            };
+            return options;
+          });
+          this.items = itemsTable;
+        });
     },
   },
 };

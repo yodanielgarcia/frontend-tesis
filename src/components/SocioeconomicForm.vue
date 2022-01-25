@@ -35,8 +35,8 @@
                 id="checkbox-1"
                 v-model="form.VulnerableFamilyCovid"
                 name="checkbox-1"
-                value="accepted"
-                unchecked-value="not_accepted"
+                value="1"
+                unchecked-value="0"
               >
               </b-form-checkbox>
               <label for="range-1">¿Cuenta con Computador propio?</label>
@@ -44,8 +44,8 @@
                 id="checkbox-2"
                 v-model="form.ComputerOwner"
                 name="checkbox-2"
-                value="accepted"
-                unchecked-value="not_accepted"
+                value="1"
+                unchecked-value="0"
               >
               </b-form-checkbox>
             </b-col>
@@ -71,8 +71,8 @@
                 id="checkbox-3"
                 v-model="form.InternetService"
                 name="checkbox-3"
-                value="accepted"
-                unchecked-value="not_accepted"
+                value="1"
+                unchecked-value="0"
               >
               </b-form-checkbox>
               <label for="range-1"
@@ -83,8 +83,8 @@
                 id="checkbox-4"
                 v-model="form.StudyEnvironment"
                 name="checkbox-4"
-                value="accepted"
-                unchecked-value="not_accepted"
+                value="1"
+                unchecked-value="0"
               >
               </b-form-checkbox>
               <label for="range-1">¿Desea volver a la presencialidad?</label>
@@ -92,8 +92,8 @@
                 id="checkbox-5"
                 v-model="form.ReturnFaceToFace"
                 name="checkbox-5"
-                value="accepted"
-                unchecked-value="not_accepted"
+                value="1"
+                unchecked-value="0"
               >
               </b-form-checkbox>
             </b-col>
@@ -133,6 +133,7 @@ export default {
   methods: {
     onSubmit() {
       let body = this.form;
+      console.log(body);
       axios
         .post(
           "https://0seilb8ln3.execute-api.us-east-2.amazonaws.com/default/UdistritalRegisterSocioeconomic",

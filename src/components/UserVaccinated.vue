@@ -7,7 +7,7 @@
 
 <script>
 import LineChart from "../charts/ClassroomCapacity";
-
+const axios = require("axios");
 export default {
   components: {
     LineChart,
@@ -15,31 +15,40 @@ export default {
   data() {
     return {
       datacollection: null,
+      userVaccinated: 10,
+      userNoVaccinated: 5,
     };
   },
   mounted() {
-    this.fillData();
+    axios
+      .get(
+        "https://2tgdxgn1rh.execute-api.us-east-2.amazonaws.com/default/UserVaccinated"
+      )
+      .then((response) => {
+        let count = 0;
+        let vaccinateUsers = response.data.map(function (element) {
+          if (element.Vaccine != 0) {
+            count += 1;
+          }
+          return count;
+        });
+        this.userVaccinated = count;
+        this.userNoVaccinated = vaccinateUsers.length - count;
+        this.fillData();
+      });
   },
   methods: {
     fillData() {
       this.datacollection = {
-        labels: [this.getRandomInt(), this.getRandomInt()],
+        labels: ["Vacunado SI", "Vacunado No"],
         datasets: [
           {
-            label: "Data One",
-            backgroundColor: "#f87979",
-            data: [this.getRandomInt(), this.getRandomInt()],
-          },
-          {
-            label: "Data One",
-            backgroundColor: "#f87979",
-            data: [this.getRandomInt(), this.getRandomInt()],
+            label: "Vacunados",
+            backgroundColor: "#f81010",
+            data: [this.userVaccinated, this.userNoVaccinated],
           },
         ],
       };
-    },
-    getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
     },
   },
 };

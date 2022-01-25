@@ -4,10 +4,10 @@
       <h1>DashBoard</h1>
       <b-row>
         <b-col>
-          <ClassroomChart style="margin-top: 5%" />
+          <ClassroomChart style="margin-top: 5%"/>
         </b-col>
         <b-col>
-          <TotalCapacity style="margin-top: 5%" />
+          <TotalCapacity style="margin-top: 5%" v-if="false" />
         </b-col>
       </b-row>
       <b-row>

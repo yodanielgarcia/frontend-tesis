@@ -7,7 +7,7 @@
 
 <script>
 import LineChart from "../charts/UserbackClassrooms";
-
+const axios = require("axios");
 export default {
   components: {
     LineChart,
@@ -15,35 +15,51 @@ export default {
   data() {
     return {
       datacollection: null,
+      userWantsBack: 10,
+      userNoWantsBack: 5,
     };
   },
   mounted() {
-    this.fillData();
+    axios
+      .get(
+        "https://k3rz093pmf.execute-api.us-east-2.amazonaws.com/default/backToUniversity"
+      )
+      .then((response) => {
+        let count = 0;
+        let Users = response.data.map(function (element) {
+          if (element.ReturnFaceToFace != 0) {
+            count += 1;
+          }
+          return count;
+        });
+        this.userWantsBack = count;
+        this.userNoWantsBack = Users.length - count;
+        this.fillData();
+      });
   },
   methods: {
     fillData() {
       this.datacollection = {
-        labels: [this.getRandomInt(), this.getRandomInt()],
+        labels: ["Si quiere Regresar", "No quiere Regresar"],
         datasets: [
           {
-            label: "Data One",
-            backgroundColor: "#2191e5",
-            data: [this.getRandomInt(), this.getRandomInt()],
-          },
-          {
-            label: "Data One",
-            backgroundColor: "#2191e5",
-            data: [this.getRandomInt(), this.getRandomInt()],
+            label: "Regreso a la presencialidad",
+            backgroundColor: "#3d34eb",
+            data: [this.userWantsBack, this.userNoWantsBack],
           },
         ],
       };
     },
-    getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
-    },
   },
 };
 </script>
+
+<style>
+.small {
+  max-width: 600px;
+  margin: 150px auto;
+}
+</style>
 
 <style>
 .small {
